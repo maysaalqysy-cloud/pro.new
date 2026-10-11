@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Tajawal', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #19110b;
+    color: #f7efe4;
+  }
+}
+
+.font-tajawal {
+  font-family: 'Tajawal', system-ui, sans-serif;
+}
+
+/* Custom Typography Color Gradients */
+.text-gradient-warm {
+  background: linear-gradient(135deg, #faecd8 0%, #e2be96 50%, #cca072 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #fff3e0 0%, #e8c49e 50%, #d49f6a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-coffee {
+  background: linear-gradient(135deg, #24130a 0%, #522d16 50%, #834b22 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-amber {
+  background: linear-gradient(135deg, #d89659 0%, #b36e32 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Custom scrollbar for warm aesthetic */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #19110b;
+}
+::-webkit-scrollbar-thumb {
+  background: #422a1b;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #633f28;
+}

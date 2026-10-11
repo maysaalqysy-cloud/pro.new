@@ -1,0 +1,8 @@
+{
+  "name": "Remix منصة دراستي - البوابة التعليمية الشاملة",
+  "description": "منصة متكاملة للطلاب تضم مكتبة لتحميل المواد، محرراً لكتابة وتنسيق الملخصات، جدولاً للخطط الدراسية وساعة توقيت وبومودورو لزيادة الإنتاجية.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

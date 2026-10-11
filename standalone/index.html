@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>منصة دراستي - البوابة التعليمية الشاملة</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- شريط التنقل العلوي -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="brand">
+        <a href="#" onclick="showPage('home'); return false;">منصة دراستي</a>
+      </div>
+
+      <nav class="nav-links">
+        <button class="nav-btn active" id="nav-home" onclick="showPage('home')">الرئيسية</button>
+        <button class="nav-btn" id="nav-materials" onclick="showPage('materials')">المواد الدراسية</button>
+        <button class="nav-btn" id="nav-summaries" onclick="showPage('summaries')">الملخصات</button>
+        <button class="nav-btn" id="nav-plans" onclick="showPage('plans')">الخطط الدراسية</button>
+      </nav>
+
+      <div class="nav-action">
+        <button class="btn btn-primary" onclick="openClockModal()">
+          <span class="icon">⏰</span>
+          <span>ساعة المذاكرة</span>
+          <span id="nav-mini-clock" class="mini-clock">--:--</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- الحاوية الرئيسية للصفحات -->
+  <main class="main-content">
+
+    <!-- 1. الصفحة الرئيسية -->
+    <section id="page-home" class="page-view active">
+      <!-- بانر البداية -->
+      <div class="hero-card">
+        <div class="hero-content">
+          <div class="badge-label">بوابة هندسة البرمجيات وعلوم الحاسوب الأكاديمية · تطوير · هندسة · خوارزميات</div>
+          <h1 class="hero-title">منصتك المتكاملة لتفوق هندسة البرمجيات وعلوم الحاسوب</h1>
+          <p class="hero-desc">
+            مكتبة شاملة لمقررات الخوارزميات وتصميم الأنظمة، محرر لتدوين الملخصات التقنية وتتبع مبادئ SOLID، جداول زمنية لمشاريع البرمجة والامتحانات، وساعة بومودورو للتركيز البرمجي العميق.
+          </p>
+          <div class="hero-buttons">
+            <button class="btn btn-primary" onclick="showPage('materials')">تصفح وتحميل المقررات</button>
+            <button class="btn btn-secondary" onclick="showPage('summaries')">كتابة ملخص برمجي</button>
+            <button class="btn btn-secondary" onclick="showPage('plans')">جدول وخطط المذاكرة</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- شريط الساعة الحية ومؤقت التركيز -->
+      <div class="clock-banner">
+        <div class="clock-info">
+          <div class="clock-icon">🕒</div>
+          <div>
+            <div id="live-time-display" class="live-time">00:00:00 ص</div>
+            <div id="live-date-display" class="live-date">اليوم والتحميل</div>
+          </div>
+        </div>
+
+        <div class="mini-pomodoro-box">
+          <div class="timer-text">
+            <span class="subtext">جلسة تركيز بومودورو</span>
+            <span id="home-timer-display" class="timer-countdown">25:00</span>
+          </div>
+          <div class="timer-actions">
+            <button id="home-timer-toggle" class="btn btn-sm btn-accent" onclick="toggleHomeTimer()">بدء</button>
+            <button class="btn btn-sm btn-icon" onclick="resetHomeTimer()" title="إعادة ضبط">🔄</button>
+          </div>
+        </div>
+
+        <div>
+          <button class="btn btn-white" onclick="openClockModal()">لوحة التوقيت الكاملة</button>
+        </div>
+      </div>
+
+      <!-- البطاقات الثلاث للأقسام الأساسية -->
+      <h2 class="section-title">أقسام المنصة الأساسية</h2>
+      <p class="section-subtitle">اختر القسم الذي تود العمل عليه لبدء المذاكرة والتنظيم فوراً</p>
+
+      <div class="cards-grid">
+        <!-- بطاقة 1: تحميل المواد -->
+        <div class="feature-card">
+          <div class="card-visual card-visual-blue">
+            <span class="card-tag">المكتبة الأكاديمية</span>
+            <div class="big-icon">📚</div>
+          </div>
+          <div class="card-body">
+            <h3>1. صفحة تحميل المقررات والمراجع</h3>
+            <p>مكتبة متكاملة لتحميل مراجع هياكل البيانات والخوارزميات، كتب هندسة البرمجيات، وسلايدات قواعد البيانات والشبكات بصيغ PDF وWord.</p>
+            <div class="card-stats">
+              <span>المقررات المتوفرة: <strong id="home-materials-count">4</strong> مراجع</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-full btn-blue" onclick="showPage('materials')">الانتقال لمكتبة المقررات والتحميل ←</button>
+          </div>
+        </div>
+
+        <!-- بطاقة 2: كتابة الملخصات -->
+        <div class="feature-card">
+          <div class="card-visual card-visual-green">
+            <span class="card-tag">محرر التدوين</span>
+            <div class="big-icon">📝</div>
+          </div>
+          <div class="card-body">
+            <h3>2. صفحة كتابة الملخصات التقنية</h3>
+            <p>بيئة مخصصة لتوثيق وتلخيص شروحات المحاضرات، صياغة مبادئ Clean Architecture و SOLID، وتلخيص تعقيد خوارزميات Big-O.</p>
+            <div class="card-stats">
+              <span>الملخصات المحفوظة: <strong id="home-summaries-count">2</strong> ملخصات</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-full btn-green" onclick="showPage('summaries')">بدء كتابة وتصفح الملخصات ←</button>
+          </div>
+        </div>
+
+        <!-- بطاقة 3: الخطط الدراسية -->
+        <div class="feature-card">
+          <div class="card-visual card-visual-purple">
+            <span class="card-tag">الجدول والخطة</span>
+            <div class="big-icon">📅</div>
+          </div>
+          <div class="card-body">
+            <h3>3. صفحة الخطط والجداول البرمجية</h3>
+            <p>جدول أسبوعي تفاعلي لتنظيم ساعات البرمجة العملية والمحاضرات، متابعة مهام مشاريع الفصل، والعد التنازلي للاختبارات القادمة.</p>
+            <div class="card-stats">
+              <span>نسبة الإنجاز: <strong id="home-tasks-progress">50%</strong></span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-full btn-purple" onclick="showPage('plans')">تنظيم وعرض خطة المذاكرة ←</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. صفحة تحميل المواد -->
+    <section id="page-materials" class="page-view">
+      <div class="view-header">
+        <div>
+          <span class="badge-label">المكتبة المركزية</span>
+          <h2>تحميل المواد والمقررات الدراسية</h2>
+          <p>تصفح الكتب والمذكرات ونماذج الامتحانات المتاحة للتحميل المباشر</p>
+        </div>
+        <button class="btn btn-primary" onclick="openAddMaterialModal()">+ رفع مادة دراسية جديدة</button>
+      </div>
+
+      <!-- شريط البحث والتصفية -->
+      <div class="filter-panel">
+        <input type="text" id="materials-search" placeholder="ابحث باسم المادة أو الكتاب أو المرجع..." oninput="filterMaterials()">
+        <div class="filter-tabs" id="subject-filter-tabs">
+          <!-- أزرار التصنيفات تتولد بالجافاسكريبت -->
+        </div>
+      </div>
+
+      <!-- شبكة المواد الدراسية -->
+      <div class="materials-grid" id="materials-container">
+        <!-- بطاقات المواد تتولد بالجافاسكريبت -->
+      </div>
+    </section>
+
+    <!-- 3. صفحة كتابة الملخصات -->
+    <section id="page-summaries" class="page-view">
+      <div class="view-header">
+        <div>
+          <span class="badge-label">محرر التدوين الدراسي</span>
+          <h2>كتابة وتنسيق الملخصات الدراسية</h2>
+          <p>دوّن أفكارك وقوانينك ومعادلاتك ونظمها في ملخصات سهلة المراجعة</p>
+        </div>
+        <button class="btn btn-accent" onclick="createNewSummary()">+ ملخص دراسي جديد</button>
+      </div>
+
+      <div class="editor-layout">
+        <!-- القائمة الجانبية للملخصات -->
+        <aside class="summaries-sidebar">
+          <input type="text" id="summary-search" placeholder="بحث في الملخصات..." oninput="filterSummaries()">
+          <div class="summaries-list" id="summaries-list">
+            <!-- قائمة الملخصات تتولد بالجافاسكريبت -->
+          </div>
+        </aside>
+
+        <!-- مساحة التحرير -->
+        <div class="editor-main">
+          <!-- شريط التحكم العلوي -->
+          <div class="editor-toolbar-top">
+            <div class="mode-toggles">
+              <button id="mode-edit-btn" class="toggle-btn active" onclick="setEditorMode('edit')">تحرير وتنسيق</button>
+              <button id="mode-preview-btn" class="toggle-btn" onclick="setEditorMode('preview')">معاينة الملخص</button>
+            </div>
+            <div class="editor-actions">
+              <button class="btn btn-accent btn-sm" onclick="saveCurrentSummary()">💾 حفظ التعديلات</button>
+              <button class="btn btn-secondary btn-sm" onclick="copySummaryText()">📋 نسخ</button>
+              <button class="btn btn-secondary btn-sm" onclick="exportSummaryTxt()">⬇️ تصدير</button>
+              <button class="btn btn-secondary btn-sm" onclick="window.print()">🖨️ طباعة</button>
+              <button class="btn btn-danger btn-sm" onclick="deleteCurrentSummary()">🗑️ حذف</button>
+            </div>
+          </div>
+
+          <!-- الحقول -->
+          <div class="editor-fields">
+            <input type="text" id="editor-title" placeholder="عنوان الملخص..." oninput="markUnsaved()">
+            <input type="text" id="editor-subject" placeholder="المادة..." oninput="markUnsaved()">
+          </div>
+
+          <!-- شريط أدوات التنسيق السريع -->
+          <div class="markdown-toolbar" id="markdown-toolbar">
+            <button type="button" onclick="insertFormat('# ', '')" title="عنوان رئيسي">H1</button>
+            <button type="button" onclick="insertFormat('## ', '')" title="عنوان فرعي">H2</button>
+            <button type="button" onclick="insertFormat('**', '**')" title="عريض">B</button>
+            <button type="button" onclick="insertFormat('*', '*')" title="مائل">I</button>
+            <button type="button" onclick="insertFormat('- ', '')" title="قائمة">- نقطة</button>
+            <button type="button" onclick="insertFormat('> ', '')" title="اقتباس">&gt; اقتباس</button>
+            <button type="button" onclick="insertFormat('`', '`')" title="كود أو صيغة">&lt;/&gt;</button>
+          </div>
+
+          <!-- مساحة النص -->
+          <div id="editor-edit-box">
+            <textarea id="editor-content" rows="16" placeholder="اكتب محتوى الملخص هنا..." oninput="updateEditorStats()"></textarea>
+          </div>
+
+          <!-- مساحة المعاينة المنسقة -->
+          <div id="editor-preview-box" class="preview-box" style="display: none;">
+            <!-- النص المنسق يظهر هنا -->
+          </div>
+
+          <!-- إحصائيات القراءة -->
+          <div class="editor-stats-bar">
+            <div>
+              الوسوم: <input type="text" id="editor-tags" placeholder="فيزياء, قوانين, امتحان" oninput="markUnsaved()">
+            </div>
+            <div id="summary-meta-stats" class="stats-text">
+              0 كلمة · 0 حرف · ~1 دقيقة قراءة
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. صفحة الخطط الدراسية -->
+    <section id="page-plans" class="page-view">
+      <div class="view-header">
+        <div>
+          <span class="badge-label">تنظيم الوقت والمهام</span>
+          <h2>الخطط والجداول الدراسية</h2>
+          <p>وزّع ساعات مذاكرتك أسبوعياً، تابع أهدافك اليومية، واستعد للاختبارات</p>
+        </div>
+        <div class="header-btns">
+          <button class="btn btn-purple" onclick="openAddTaskModal()">+ إضافة مهمة جديدة</button>
+          <button class="btn btn-secondary" onclick="openAddScheduleModal()">+ إضافة حصة للجدول</button>
+        </div>
+      </div>
+
+      <!-- بطاقات الإحصائيات العلوية -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-header">
+            <span>معدل إنجاز المهام</span>
+            <strong id="tasks-progress-text">0 من 0</strong>
+          </div>
+          <div class="progress-track">
+            <div id="tasks-progress-bar" class="progress-fill" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <div class="stat-card stat-card-highlight">
+          <div class="stat-icon">🔥</div>
+          <div>
+            <span class="stat-small">سلسلة الالتزام بالمذاكرة</span>
+            <div class="stat-big">7 أيام متتالية من الإنجاز</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <span class="stat-small">أقرب موعد اختبار</span>
+          <div id="nearest-exam-title" class="stat-mid">جاري التحميل...</div>
+          <span id="nearest-exam-countdown" class="stat-highlight">--</span>
+        </div>
+      </div>
+
+      <!-- 1. الجدول الأسبوعي -->
+      <div class="plan-section">
+        <div class="plan-section-header">
+          <div>
+            <h3>1. الجدول الأسبوعي للمذاكرة</h3>
+            <p>اختر اليوم لعرض الحصص والمحاضرات المقررة</p>
+          </div>
+          <div class="day-tabs" id="day-tabs">
+            <!-- أزرار أيام الأسبوع -->
+          </div>
+        </div>
+        <div class="schedule-slots-grid" id="schedule-container">
+          <!-- حصص اليوم تتولد هنا -->
+        </div>
+      </div>
+
+      <!-- 2. قائمة المهام اليومية -->
+      <div class="plan-section">
+        <div class="plan-section-header">
+          <div>
+            <h3>2. قائمة مهام وأهداف الخطة الدراسية</h3>
+            <p>حدد المهام وأشر عليها عند الإنجاز لرفع تركيزك</p>
+          </div>
+          <div class="filter-tabs">
+            <button class="tab-btn active" onclick="filterTasks('all')">الكل</button>
+            <button class="tab-btn" onclick="filterTasks('pending')">المتبقية</button>
+            <button class="tab-btn" onclick="filterTasks('completed')">المكتملة</button>
+          </div>
+        </div>
+        <div class="tasks-list" id="tasks-container">
+          <!-- قائمة المهام -->
+        </div>
+      </div>
+
+      <!-- 3. العد التنازلي للاختبارات -->
+      <div class="plan-section">
+        <div class="plan-section-header">
+          <div>
+            <h3>3. العد التنازلي للاختبارات</h3>
+            <p>ابق على اطلاع بالأيام المتبقية للاختبارات الهامة</p>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="openAddExamModal()">+ إضافة اختبار</button>
+        </div>
+        <div class="exams-grid" id="exams-container">
+          <!-- كروت الامتحانات -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- نافذة ساعة التوقيت وبومودورو المنبثقة -->
+  <div id="clock-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>ساعة التوقيت والتركيز الدراسي</h3>
+        <button class="close-btn" onclick="closeClockModal()">✕</button>
+      </div>
+
+      <div class="modal-tabs">
+        <button class="tab-btn active" id="clock-tab-pomodoro" onclick="switchClockTab('pomodoro')">مؤقت بومودورو</button>
+        <button class="tab-btn" id="clock-tab-clock" onclick="switchClockTab('clock')">الساعة الحالية</button>
+        <button class="tab-btn" id="clock-tab-stopwatch" onclick="switchClockTab('stopwatch')">ساعة إيقاف</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- بومودورو -->
+        <div id="view-pomodoro" class="clock-tab-view">
+          <div class="pomodoro-modes">
+            <button class="mode-btn active" onclick="setPomodoroDuration(25, this)">مذاكرة (25 د)</button>
+            <button class="mode-btn" onclick="setPomodoroDuration(5, this)">راحة قصيرة (5 د)</button>
+            <button class="mode-btn" onclick="setPomodoroDuration(15, this)">راحة طويلة (15 د)</button>
+          </div>
+
+          <div class="big-timer-circle">
+            <div id="pomodoro-time-display" class="timer-digits">25:00</div>
+            <div id="pomodoro-status-text" class="timer-label">وقت التركيز والإنتاج</div>
+          </div>
+
+          <div class="timer-controls">
+            <button id="pomodoro-toggle-btn" class="btn btn-primary" onclick="togglePomodoro()">بدء المؤقت</button>
+            <button class="btn btn-secondary" onclick="resetPomodoro()">إعادة ضبط</button>
+            <button class="btn btn-secondary" onclick="playNotificationChime()" title="تجربة الصوت">🔔</button>
+          </div>
+
+          <div class="pomodoro-counter">
+            الجلسات المكتملة اليوم: <strong id="pomodoro-cycles">0</strong>
+          </div>
+        </div>
+
+        <!-- الساعة الرقمية -->
+        <div id="view-clock" class="clock-tab-view" style="display: none;">
+          <div id="modal-digital-clock" class="huge-digital-clock">00:00:00</div>
+          <div id="modal-digital-date" class="huge-digital-date">--</div>
+          <div class="clock-details-box">
+            <div>التوقيت القياسي (24 ساعة): <span id="clock-detail-24">--</span></div>
+            <div>المنطقة الزمنية: <span id="clock-detail-tz">--</span></div>
+          </div>
+        </div>
+
+        <!-- ساعة الإيقاف -->
+        <div id="view-stopwatch" class="clock-tab-view" style="display: none;">
+          <div id="stopwatch-display" class="huge-digital-clock">00:00</div>
+          <div class="timer-controls">
+            <button id="stopwatch-toggle-btn" class="btn btn-primary" onclick="toggleStopwatch()">بدء الحساب</button>
+            <button id="stopwatch-lap-btn" class="btn btn-secondary" onclick="lapStopwatch()">جولة</button>
+          </div>
+          <div id="stopwatch-laps-list" class="laps-container"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- نافذة إضافة مادة دراسية -->
+  <div id="add-material-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>رفع مادة دراسية جديدة</h3>
+        <button class="close-btn" onclick="closeAddMaterialModal()">✕</button>
+      </div>
+      <form id="add-material-form" onsubmit="handleAddMaterial(event)">
+        <div class="form-group">
+          <label>عنوان المادة أو الكتاب *</label>
+          <input type="text" id="mat-title" required placeholder="مثال: ملخص الكيمياء العضوية">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>المادة الأكاديمية</label>
+            <input type="text" id="mat-subject" required placeholder="الرياضيات">
+          </div>
+          <div class="form-group">
+            <label>نوع المادة</label>
+            <select id="mat-category">
+              <option value="كتاب">كتاب</option>
+              <option value="ملخص">ملخص</option>
+              <option value="أسئلة وتدريبات">أسئلة وتدريبات</option>
+              <option value="عروض تقديمية">عروض تقديمية</option>
+              <option value="نماذج امتحانات">نماذج امتحانات</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>صيغة الملف</label>
+            <select id="mat-filetype">
+              <option value="pdf">PDF</option>
+              <option value="docx">Word (DOCX)</option>
+              <option value="pptx">PowerPoint (PPTX)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>اسم الدكتور / أستاذ المادة *</label>
+            <input type="text" id="mat-author" placeholder="مثال: د. حسام السعيد أو د. ليلى الشريف">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>وصف المادة ومحتوياتها</label>
+          <textarea id="mat-desc" rows="3" placeholder="نبذة مختصرة عن الدروس والفصول..."></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeAddMaterialModal()">إلغاء</button>
+          <button type="submit" class="btn btn-primary">حفظ ورفع المادة</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- نافذة إضافة مهمة -->
+  <div id="add-task-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>تحديد مهمة دراسية جديدة</h3>
+        <button class="close-btn" onclick="closeAddTaskModal()">✕</button>
+      </div>
+      <form id="add-task-form" onsubmit="handleAddTask(event)">
+        <div class="form-group">
+          <label>اسم المهمة *</label>
+          <input type="text" id="task-title" required placeholder="مثال: تطبيق خوارزمية Binary Search Tree">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>المساق الأكاديمي</label>
+            <input type="text" id="task-subject" required placeholder="هياكل البيانات">
+          </div>
+          <div class="form-group">
+            <label>اسم الدكتور المكلف</label>
+            <input type="text" id="task-doctor" placeholder="مثال: د. حسام السعيد">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>الأولوية</label>
+            <select id="task-priority">
+              <option value="عالية">عالية 🔴</option>
+              <option value="متوسطة" selected>متوسطة 🟡</option>
+              <option value="منخفضة">منخفضة 🟢</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>المدة المقدرة (بالدقائق)</label>
+            <input type="number" id="task-duration" value="45" min="5" step="5">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>تاريخ الإنجاز *</label>
+          <input type="date" id="task-date" required>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeAddTaskModal()">إلغاء</button>
+          <button type="submit" class="btn btn-purple">إضافة المهمة</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- تذييل الصفحة العصري والمختصر بدون نصوص زائدة -->
+  <footer class="site-footer">
+    <div class="footer-container" style="display: flex; justify-content: space-between; align-items: center; padding: 14px 24px;">
+      <div class="brand">
+        <a href="#" onclick="showPage('home'); return false;">منصة دراستي</a>
+      </div>
+      <div class="nav-links" style="display: flex; gap: 16px; font-size: 12px;">
+        <a href="#" onclick="showPage('home'); return false;" style="color: #d9c5b2; text-decoration: none;">الرئيسية</a>
+        <a href="#" onclick="showPage('materials'); return false;" style="color: #d9c5b2; text-decoration: none;">المقررات</a>
+        <a href="#" onclick="showPage('summaries'); return false;" style="color: #d9c5b2; text-decoration: none;">الملخصات</a>
+        <a href="#" onclick="showPage('plans'); return false;" style="color: #d9c5b2; text-decoration: none;">المهام والجدول</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
